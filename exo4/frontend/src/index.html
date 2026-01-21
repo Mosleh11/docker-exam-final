@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Exo 4 Final</title></head>
+<body>
+    <h1>Test Stack Finale (PostgreSQL)</h1>
+    <div id="result">Chargement...</div>
+    <script>
+        fetch('http://localhost:5000/api/data')
+            .then(r => r.json())
+            .then(d => document.getElementById('result').innerText = d.message || d.error)
+            .catch(e => document.getElementById('result').innerText = "Erreur Back");
+    </script>
+</body>
+</html>

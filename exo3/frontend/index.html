@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice 3 : Tor User</title>
+</head>
+<body>
+    <h1>Utilisateur Mystère (via Tor) </h1>
+    
+    <div id="profil">Chargement...</div>
+    <button onclick="loadUser()">Nouvel utilisateur</button>
+
+    <script>
+        async function loadUser() {
+            const div = document.getElementById('profil');
+            div.innerHTML = "Recherche dans le Darknet...";
+            
+            try {
+                const res = await fetch('http://localhost:5000/api/random-user');
+                const data = await res.json();
+                
+                if (data.error) {
+                    div.innerHTML = "Erreur Tor : " + data.error;
+                } else {
+                    // Consigne : Nom + Photo
+                    div.innerHTML = `
+                        <h2>${data.name}</h2>
+                        <img src="${data.picture}" alt="Photo profil" style="border-radius:50%">
+                    `;
+                }
+            } catch (err) {
+                div.innerHTML = "Erreur de connexion au backend";
+            }
+        }
+        loadUser();
+    </script>
+</body>
+</html>

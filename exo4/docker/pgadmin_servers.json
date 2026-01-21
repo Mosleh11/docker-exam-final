@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Serveur Exo4",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "user_bdd",
+            "Host": "postgres",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "mabase"
+        }
+    }
+}

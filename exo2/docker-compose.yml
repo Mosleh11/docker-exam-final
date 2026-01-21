@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      # C'est la ligne CRITIQUE : on lie le dossier 'data' de ton PC au conteneur
+      - ./data:/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"

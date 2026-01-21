@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice 1</title>
+</head>
+<body>
+    <h1>Message du Backend :</h1>
+    <div id="message">Chargement...</div>
+
+    <script>
+        // On tape sur l'API du backend
+        fetch('http://localhost:5000/api/hello')
+            .then(response => response.json())
+            .then(data => {
+                // On affiche le message reçu
+                document.getElementById('message').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('message').innerText = "Erreur de connexion";
+            });
+    </script>
+</body>
+</html>

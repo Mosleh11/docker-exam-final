@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Utilisateurs</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .user-card { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Exercice 2 : CRUD Utilisateurs</h1>
+
+    <h3>Ajouter un utilisateur</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="text" id="password" placeholder="Password">
+    <button onclick="addUser()">Ajouter</button>
+
+    <hr>
+
+    <h3>Liste :</h3>
+    <div id="userList"></div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/users';
+
+        // Charger les utilisateurs
+        async function loadUsers() {
+            const res = await fetch(API_URL);
+            const users = await res.json();
+            const container = document.getElementById('userList');
+            container.innerHTML = '';
+            users.forEach(u => {
+                container.innerHTML += `
+                    <div class="user-card">
+                        <b>${u.username}</b> (Mdp: ${u.password})
+                        <button onclick="deleteUser(${u.id})">Supprimer</button>
+                        <button onclick="updateUser(${u.id})">Modifier</button>
+                    </div>`;
+            });
+        }
+
+        // Ajouter
+        async function addUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+            loadUsers();
+        }
+
+        // Supprimer
+        async function deleteUser(id) {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            loadUsers();
+        }
+
+        // Modifier (Update simple pour l'exemple)
+        async function updateUser(id) {
+            const newName = prompt("Nouveau nom ?");
+            const newPass = prompt("Nouveau mot de passe ?");
+            if(newName && newPass) {
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username: newName, password: newPass})
+                });
+                loadUsers();
+            }
+        }
+
+        // Charger au démarrage
+        loadUsers();
+    </script>
+</body>
+</html>

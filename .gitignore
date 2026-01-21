@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+# On ignore les données locales de l'exo 2 (elles seront recréées)
+exo2/data/
+# On ignore les données locales de l'exo 4
+exo4/pg_data/

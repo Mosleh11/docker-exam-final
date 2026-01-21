@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000" # Mapping du port 5000 demandé
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80" # On expose le 80 interne sur le 3000 externe comme demandé
+    depends_on:
+      - backend # On attend que le back soit là
